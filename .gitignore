@@ -11,4 +11,10 @@ CTestTestfile.cmake
 _deps
 cmake-build-debug
 
+.cmake
+.ninja*
+build.ninja
+
+kutaragi
+
 .idea
