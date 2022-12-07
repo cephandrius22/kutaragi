@@ -1,0 +1,14 @@
+cmake_minimum_required(VERSION 3.9)
+
+project(kutaragi)
+set(CMAKE_CXX_STANDARD 17)
+
+set(SDL2_PATH "C:\\Users\\jvwri\\ProgrammingLibraries\\SDL2-2.26.1\\x86_64-w64-mingw32")
+find_package(SDL2 REQUIRED)
+include_directories(${SDL2_INCLUDE_DIR})
+
+add_executable(kutaragi main.cpp)
+
+target_link_libraries(kutaragi ${SDL2_LIBRARY})
+
+
