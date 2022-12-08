@@ -1,6 +1,6 @@
 
 include_directories("../include" "../src")
 
-add_executable(mytest test.cpp)
+add_executable(test_vec test_vec.cpp)
 
-add_test(NAME mytest COMMAND mytest)
+add_test(NAME test_vec COMMAND test_vec)

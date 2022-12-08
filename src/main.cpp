@@ -13,8 +13,9 @@ static void put_pixel(std::vector<uint32_t> &pixels, int screen_width, int x,
 
 
 int main(int argc, char *argv[]) {
+    std::cout << "1111" << std::endl;
     SDL_Init(SDL_INIT_VIDEO);
-
+    std::cout << "here" << std::endl;
     SDL_Rect screen_rect = {0, 0, 1024, 1024};
     SDL_Window *window = SDL_CreateWindow(
             "SDL", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screen_rect.w,

@@ -4,7 +4,7 @@ project(kutaragi)
 set(CMAKE_CXX_STANDARD 17)
 find_package(SDL2 REQUIRED)
 
-add_executable(kutaragi src/main.cpp include/vec.h)
+add_executable(kutaragi src/main.cpp include/vec.h include/triangle.h include/matrix.h)
 
 IF (WIN32)
 	set(SDL2_PATH "C:\\Users\\jvwri\\ProgrammingLibraries\\SDL2-2.26.1\\x86_64-w64-mingw32")
