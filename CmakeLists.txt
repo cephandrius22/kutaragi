@@ -14,3 +14,6 @@ ELSE()
 	include_directories(${SDL2_INCLUDE_DIRS})
 	target_link_libraries(kutaragi ${SDL2_LIBRARIES})
 ENDIF()
+
+enable_testing()
+add_subdirectory(tests)
