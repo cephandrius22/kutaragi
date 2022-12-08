@@ -1,5 +1,6 @@
 #include <SDL.h>
 #include <vector>
+#include <iostream>
 
 inline uint32_t argb(uint8_t a, uint8_t r, uint8_t g, uint8_t b) {
     return (a << 24) | (r << 16) | (g << 8) | (b << 0);
@@ -10,21 +11,6 @@ static void put_pixel(std::vector<uint32_t> &pixels, int screen_width, int x,
     pixels[y * screen_width + x] = argb_color;
 }
 
-void handle_input(void) {
-    SDL_Event event;
-    while (SDL_PollEvent(&event) != 0) {
-        switch (event.type) {
-            case SDL_WINDOWEVENT:
-                if (event.window.event == SDL_WINDOWEVENT_RESIZED) {
-                }
-                break;
-            case SDL_QUIT:
-                exit(0);
-            default:
-                break;
-        }
-    }
-}
 
 int main(int argc, char *argv[]) {
     SDL_Init(SDL_INIT_VIDEO);
@@ -55,6 +41,7 @@ int main(int argc, char *argv[]) {
                     }
                     break;
                 case SDL_QUIT:
+                    std::cout << "HERE";
                     running = false;
                     break;
                 default:
