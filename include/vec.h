@@ -42,6 +42,10 @@ public:
     bool operator==(const Vec3& v) const {
         return this->e == v.e;
     }
+
+    float operator[](int i) {
+        return e[i];
+    }
 };
 
 using Point3 = Vec3;

@@ -42,4 +42,28 @@ public:
     }
 };
 
+/* Generate a translation matrix for a given vector. */
+Mat4 translation(Vec3 vec) {
+    std::array<float, 16> values = {
+            1, 0, 0, vec[0],
+            0, 1, 0, vec[1],
+            0, 0, 1, vec[2],
+            0, 0, 0, 1
+    };
+
+    return Mat4 {values};
+}
+
+/* Generate a scaling matrix for a given vector. */
+Mat4 scaling(Vec3 vec) {
+    std::array<float, 16> values = {
+            vec[0], 0,      0,      0,
+            0,      vec[1], 0,      0,
+            0,      0,      vec[2], 0,
+            0,      0,      0,      1
+    };
+
+    return Mat4 {values};
+}
+
 #endif //KUTARAGI_MATRIX_H
