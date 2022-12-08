@@ -1,7 +1,3 @@
-//
-// Created by jvwri on 12/7/2022.
-//
-
 #ifndef KUTARAGI_VEC_H
 #define KUTARAGI_VEC_H
 
@@ -43,7 +39,7 @@ public:
         return *this;
     }
 
-    bool operator==(const Vec3& v) {
+    bool operator==(const Vec3& v) const {
         return this->e == v.e;
     }
 };
@@ -56,7 +52,7 @@ float dot(const Vec3& a, const Vec3& b) {
 
 class Vec4 {
 public:
-    std::array<float, 4> e;
+    std::array<float, 4> e{};
 
     Vec4() : e{0, 0, 0, 0} {}
     Vec4(float x, float y, float z, float w) : e{x, y, z, w} {}
@@ -68,7 +64,7 @@ public:
         this->e[3] = w;
     }
 
-    bool operator==(const Vec4& v) {
+    bool operator==(const Vec4& v) const {
         return this->e == v.e;
     }
 };

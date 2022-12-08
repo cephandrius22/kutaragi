@@ -1,7 +1,3 @@
-//
-// Created by jvwri on 12/8/2022.
-//
-
 #ifndef KUTARAGI_MATRIX_H
 #define KUTARAGI_MATRIX_H
 
@@ -10,18 +6,39 @@
 
 class Mat4 {
 public:
-    std::array<float, 4*4> values;
+    // NOTE: these values are stored in row-major order
+    std::array<float, 4*4> values{};
 
     Mat4() = default;
     Mat4(std::array<float, 16> values) : values(values) {}
 
-    Mat4 operator*(const Vec4& vec) {
-        Mat4 result{};
+    Vec4 operator*(const Vec4& vec) {
+        Vec4 result{};
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                result.values[i * 4 + j] = this->values[i * 4 + j] * vec[j];
+                result.e[i] += this->values[i * 4 + j] * vec.e[j];
             }
         }
+
+        return result;
+    }
+
+    Mat4 operator*(const Mat4& mat) {
+        Mat4 result{};
+        /* There has to be a better way to do this. */
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                for (int k = 0; k < 4; k++) {
+                    result.values[i * 4 + j] += this->values[i * 4 + k] * mat.values[k * 4 + j];
+                }
+            }
+        }
+
+        return result;
+    }
+
+    bool operator==(const Mat4& mat) const {
+        return this->values == mat.values;
     }
 };
 
