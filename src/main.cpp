@@ -1,6 +1,8 @@
 #include <SDL.h>
 #include <vector>
 #include <iostream>
+#include <triangle.h>
+#include <matrix.h>
 
 inline uint32_t argb(uint8_t a, uint8_t r, uint8_t g, uint8_t b) {
     return (a << 24) | (r << 16) | (g << 8) | (b << 0);
@@ -25,6 +27,20 @@ int main(int argc, char *argv[]) {
                                              screen_rect.w, screen_rect.h);
 
     std::vector<uint32_t> pixels(1024 * 1024 * 4, 0);
+
+    // model coordinates
+    Triangle tri {
+        Vec3 {-1, 0, 0},
+        Vec3 {1, 0, 0},
+        Vec3 {0, 1, 0},
+    };
+
+    Mat4 translate = translation(Vec3 {0, 0, -1});
+
+    // for now assume the camera is at {0, 0, 0}
+
+    // generate a perspective matrix
+    
 
     bool running = true;
     while (running) {

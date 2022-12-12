@@ -11,7 +11,7 @@ IF (WIN32)
 	include_directories(${SDL2_INCLUDE_DIR})
 	target_link_libraries(kutaragi ${SDL2_LIBRARY})
 ELSE()
-	include_directories(${SDL2_INCLUDE_DIRS})
+	include_directories(${SDL2_INCLUDE_DIRS} include)
 	target_link_libraries(kutaragi ${SDL2_LIBRARIES})
 ENDIF()
 
