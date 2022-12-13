@@ -20,3 +20,6 @@ tests/test_*
 kutaragi
 
 .idea
+
+
+.vscode
