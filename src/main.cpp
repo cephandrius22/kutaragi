@@ -1,4 +1,4 @@
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <vector>
 #include <iostream>
 #include <triangle.h>
@@ -13,6 +13,16 @@ static void put_pixel(std::vector<uint32_t> &pixels, int screen_width, int x,
                       int y, uint32_t argb_color)
 {
     pixels[y * screen_width + x] = argb_color;
+}
+
+static void line(std::vector<uint32_t> &pixels, int screen_width, uint32_t argb_color,
+                 int x0, int y0, int x1, int y1)
+{
+    for (int x = x0; x <= x1; x++) {
+        float t = (x - x0) / (float) (x1 - x0);
+        int y = y0 * (1.0 - t) + (y1 * t);
+        put_pixel(pixels, screen_width, x, y, argb_color);
+    }
 }
 
 int main(int argc, char *argv[])
@@ -50,11 +60,9 @@ int main(int argc, char *argv[])
     Vec4 v1 = mvp * Vec4{tri.a, 1};
     Vec4 v2 = mvp * Vec4{tri.b, 1};
     Vec4 v3 = mvp * Vec4{tri.c, 1};
-    std::cout << v1[0] << " " << v1[1] << " " << v1[2] << " " << v1[3] << std::endl;
-    std::cout << v2[0] << " " << v2[1] << " " << v2[2] << " " << v2[3] << std::endl;
-    std::cout << v3[0] << " " << v3[1] << " " << v3[2] << " " << v3[3] << std::endl;
+    v1.dump();
 
-    return 0;
+    // return 0;
 
     bool running = true;
     while (running)
@@ -67,10 +75,11 @@ int main(int argc, char *argv[])
             case SDL_WINDOWEVENT:
                 if (event.window.event == SDL_WINDOWEVENT_RESIZED)
                 {
-                    int w, h;
-                    SDL_GetWindowSize(window, &w, &h);
-                    screen_rect.w = w;
-                    screen_rect.h = h;
+                    break; // TODO: just not going to handle this atm
+                    // int w, h;
+                    // SDL_GetWindowSize(window, &w, &h);
+                    // screen_rect.w = w;
+                    // screen_rect.h = h;
                 }
                 break;
             case SDL_QUIT:
@@ -90,19 +99,28 @@ int main(int argc, char *argv[])
 
         int pitch;
         SDL_LockTexture(texture, &screen_rect, (void **)&pixels, &pitch);
-        for (Triangle t : triangles)
-        {
+        uint32_t color = argb(255, 77, 255, 100);
+        line(pixels, screen_rect.w, color, 400, 400, 700, 700);
 
-            for (int y = 0; y < screen_rect.h; y++)
-            {
-                for (int x = 0; x < screen_rect.w; x++)
-                {
-                    int color = (x + y) % 2 == 0 ? 255 : 0;
-                    pixels[y * screen_rect.w + x] =
-                        argb(255, color, color, color);
-                }
-            }
-        }
+
+        color = argb(255, 0, 255, 255);
+        line(pixels, screen_rect.w, color, 200, 500, 700, 300);
+
+
+
+        // for (Triangle t : triangles)
+        // {
+
+        //     for (int y = 0; y < screen_rect.h; y++)
+        //     {
+        //         for (int x = 0; x < screen_rect.w; x++)
+        //         {
+        //             int color = (x + y) % 2 == 0 ? 255 : 0;
+        //             pixels[y * screen_rect.w + x] =
+        //                 argb(255, color, color, color);
+        //         }
+        //     }
+        // }
 
         SDL_UnlockTexture(texture);
 

@@ -72,7 +72,7 @@ public:
         {
             for (int j = 0; j < 4; j++)
             {
-                std::cout << this->values[i * 4 + j] << "      ";
+                std::cout << this->values[i * 4 + j] << std::setw(8);
             }
             std::cout << std::endl;
         }

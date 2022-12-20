@@ -2,6 +2,8 @@
 #define KUTARAGI_VEC_H
 
 #include <array>
+#include <iostream>
+#include <iomanip>
 
 class Vec3
 {
@@ -53,6 +55,10 @@ public:
     {
         return e[i];
     }
+
+    void dump() const {
+        std::cout << e[0] << std::setw(8) << e[1] << std::setw(8) << e[2] << std::setw(8) << std::endl;
+    }
 };
 
 using Point3 = Vec3;
@@ -79,6 +85,10 @@ public:
     {
         return e[i];
     }
+
+    void dump() const {
+        std::cout << e[0] << std::setw(8) << e[1] << std::setw(8) << std::endl;
+    }
 };
 
 class Vec4
@@ -102,9 +112,13 @@ public:
         return this->e == v.e;
     }
 
-    float operator[](int i)
+    float operator[](int i) const
     {
         return e[i];
+    }
+
+    void dump() const {
+        std::cout << e[0] << std::setw(8) << e[1] << std::setw(8) << e[2] << std::setw(8) << e[3] << std::setw(8) << std::endl;
     }
 };
 
