@@ -13,6 +13,10 @@ public:
     Vec3() : e{0, 0, 0} {}
     Vec3(float x, float y, float z) : e{x, y, z} {}
 
+    double x() const { return e[0]; }
+    double y() const { return e[1]; }
+    double z() const { return e[2]; }
+
     Vec3 operator+(const Vec3 &v)
     {
         e[0] += v.e[0];
@@ -46,6 +50,13 @@ public:
         return *this;
     }
 
+    Vec3 operator/(float scalar) {
+        e[0] /= scalar;
+        e[1] /= scalar;
+        e[2] /= scalar;
+        return *this;       
+    }
+
     bool operator==(const Vec3 &v) const
     {
         return this->e == v.e;
@@ -76,6 +87,9 @@ public:
     Vec2() : e{0, 0} {}
     Vec2(float x, float y) : e{x, y} {}
 
+    double x() const { return e[0]; }
+    double y() const { return e[1]; }
+
     bool operator==(const Vec2 &v) const
     {
         return this->e == v.e;
@@ -99,12 +113,25 @@ public:
     Vec4() : e{0, 0, 0, 0} {}
     Vec4(float x, float y, float z, float w) : e{x, y, z, w} {}
 
+    double x() const { return e[0]; }
+    double y() const { return e[1]; }
+    double z() const { return e[2]; }
+    double w() const { return e[3]; }
+
     Vec4(Vec3 vec, float w)
     {
         this->e[0] = vec.e[0];
         this->e[1] = vec.e[1];
         this->e[2] = vec.e[2];
         this->e[3] = w;
+    }
+
+    Vec4 operator/(float scalar) {
+        e[0] /= scalar;
+        e[1] /= scalar;
+        e[2] /= scalar;
+        e[3] /= scalar;
+        return *this;       
     }
 
     bool operator==(const Vec4 &v) const

@@ -108,12 +108,13 @@ const float PI = 3.14159;
 Mat4 projection(float fov, float aspect_ratio, float znear, float zfar)
 {
     float fov_radians = fov * PI / 180;
+    float e = 1.0 / tan(fov_radians / 2.0f);
     // TODO: this formatting is really rough. Need to mess with
     // some settings.
     std::array<float, 16> values = {
         1 / aspect_ratio * (1 / tan(fov_radians / 2.0f)), 0, 0, 0,
         0, (1 / tan(fov_radians / 2.0f)), 0, 0,
-        0, 0, -(zfar / (zfar - znear)), -(2 * zfar * znear / (zfar - znear)),
+        0, 0, (zfar + znear / (znear - zfar)), (2 * zfar * znear / (zfar - znear)),
         0, 0, -1, 0};
 
     return Mat4{values};
