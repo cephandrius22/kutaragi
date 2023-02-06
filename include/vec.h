@@ -16,7 +16,7 @@ public:
     double x() const { return e[0]; }
     double y() const { return e[1]; }
 
-    bool operator==(const Vec2 &v) const
+    [[nodiscard]] bool operator==(const Vec2 &v) const
     {
         return this->e == v.e;
     }
@@ -43,7 +43,7 @@ public:
     double y() const { return e[1]; }
     double z() const { return e[2]; }
 
-    Vec3 operator+(const Vec3 &v)
+    [[nodiscard]] Vec3 operator+(const Vec3 &v)
     {
         return Vec3 {
             e[0] += v.e[0],
@@ -52,7 +52,7 @@ public:
         };
     }
 
-    Vec3 operator-(const Vec3 &v)
+    [[nodiscard]] Vec3 operator-(const Vec3 &v)
     {
         return Vec3 {
             e[0] -= v.e[0],
@@ -61,7 +61,7 @@ public:
         };
     }
 
-    Vec3 operator*(float scalar)
+    [[nodiscard]] Vec3 operator*(float scalar)
     {
         return Vec3 {
             e[0] *= scalar,
@@ -78,7 +78,7 @@ public:
         };  
     }
 
-    Vec3 operator+=(const Vec3 &v)
+    [[nodiscard]] Vec3 operator+=(const Vec3 &v)
     {
         e[0] += v.e[0];
         e[1] += v.e[1];
@@ -109,7 +109,7 @@ public:
         return *this;       
     }
 
-    bool operator==(const Vec3 &v) const
+    [[nodiscard]] bool operator==(const Vec3 &v) const
     {
         return this->e == v.e;
     }
@@ -126,11 +126,10 @@ public:
 
 using Point3 = Vec3;
 
-float dot(const Vec3 &a, const Vec3 &b)
+[[nodiscard]] float dot(const Vec3 &a, const Vec3 &b)
 {
     return a.e[0] * b.e[0] + a.e[1] * b.e[1] + a.e[2] * b.e[2];
 }
-
 
 
 class Vec4
@@ -154,7 +153,7 @@ public:
         this->e[3] = w;
     }
 
-    Vec4 operator/(float scalar) {
+    [[nodiscard]] Vec4 operator/(float scalar) {
         return Vec4 {
             e[0] / scalar,
             e[1] / scalar,
@@ -171,7 +170,7 @@ public:
         return *this;       
     }
 
-    bool operator==(const Vec4 &v) const
+    [[nodiscard]] bool operator==(const Vec4 &v) const
     {
         return this->e == v.e;
     }

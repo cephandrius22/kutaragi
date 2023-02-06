@@ -17,7 +17,7 @@ public:
     Mat4() = default;
     Mat4(std::array<float, 16> values) : values(values) {}
 
-    Vec4 operator*(const Vec4 &vec)
+    [[nodiscard]] Vec4 operator*(const Vec4 &vec)
     {
         Vec4 result{};
         for (int i = 0; i < 4; i++)
@@ -31,7 +31,7 @@ public:
         return result;
     }
 
-    Mat4 operator*(const Mat4 &mat)
+    [[nodiscard]] Mat4 operator*(const Mat4 &mat)
     {
         Mat4 result{};
         /* There has to be a better way to do this. */
@@ -49,7 +49,7 @@ public:
         return result;
     }
 
-    bool operator==(const Mat4 &mat) const
+    [[nodiscard]] bool operator==(const Mat4 &mat) const
     {
         return this->values == mat.values;
     }
@@ -82,7 +82,7 @@ public:
 };
 
 /* Generate a translation matrix for a given vector. */
-Mat4 translation(Vec3 vec)
+[[nodiscard]] Mat4 translation(Vec3 vec)
 {
     std::array<float, 16> values = {
         1, 0, 0, vec[0],
@@ -94,7 +94,7 @@ Mat4 translation(Vec3 vec)
 }
 
 /* Generate a scaling matrix for a given vector. */
-Mat4 scaling(Vec3 vec)
+[[nodiscard]] Mat4 scaling(Vec3 vec)
 {
     std::array<float, 16> values = {
         vec[0], 0, 0, 0,
@@ -105,7 +105,7 @@ Mat4 scaling(Vec3 vec)
     return Mat4{values};
 }
 
-Mat4 rotate_x_axis(float theta) {
+[[nodiscard]] Mat4 rotate_x_axis(float theta) {
     float theta_radians = theta * PI / 180;
     std::array<float, 16> values = {
         1, 0, 0, 0,
@@ -116,7 +116,7 @@ Mat4 rotate_x_axis(float theta) {
     return Mat4{values};
 }
 
-Mat4 rotate_y_axis(float theta) {
+[[nodiscard]] Mat4 rotate_y_axis(float theta) {
     float theta_radians = theta * PI / 180;
     std::array<float, 16> values = {
         cos(theta_radians), 0, sin(theta_radians), 0,
@@ -127,7 +127,7 @@ Mat4 rotate_y_axis(float theta) {
     return Mat4{values};
 }
 
-Mat4 rotate_z_axis(float theta) {
+[[nodiscard]] Mat4 rotate_z_axis(float theta) {
     float theta_radians = theta * PI / 180;
     std::array<float, 16> values = {
         cos(theta_radians), -sin(theta), 0, 0,
@@ -138,15 +138,15 @@ Mat4 rotate_z_axis(float theta) {
     return Mat4{values};
 }
 
-Mat4 projection(float fov, float aspect_ratio, float znear, float zfar)
+[[nodiscard]] Mat4 projection(float fov, float aspect_ratio, float znear, float zfar)
 {
     float fov_radians = fov * PI / 180;
     float e = 1.0 / tan(fov_radians / 2.0f);
     // TODO: this formatting is really rough. Need to mess with
     // some settings.
     std::array<float, 16> values = {
-        1 / aspect_ratio * (1 / tan(fov_radians / 2.0f)), 0, 0, 0,
-        0, (1 / tan(fov_radians / 2.0f)), 0, 0,
+        1 / aspect_ratio * e, 0, 0, 0,
+        0, e, 0, 0,
         0, 0, (zfar + znear / (znear - zfar)), (2 * zfar * znear / (zfar - znear)),
         0, 0, -1, 0};
 

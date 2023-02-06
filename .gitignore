@@ -18,6 +18,7 @@ build.ninja
 tests/test_*
 
 kutaragi
+kutaragid
 
 .idea
 

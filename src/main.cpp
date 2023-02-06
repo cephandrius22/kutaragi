@@ -63,7 +63,7 @@ void convert_to_pixel(Vec2& v, float width, float height) {
 
 int main(int argc, char *argv[])
 {
-    SDL_Init(SDL_INIT_VIDEO);
+    SDL_Init(SDL_INIT_EVERYTHING);
     SDL_Rect screen_rect = {0, 0, 1024, 1024};
     SDL_Window *window = SDL_CreateWindow(
         "SDL", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screen_rect.w,
@@ -112,16 +112,9 @@ int main(int argc, char *argv[])
                 break;
             case SDL_QUIT:
                 running = false;
-                break;
             default:
                 break;
             }
-        }
-
-        // Check again after handling events. This should be reformatted
-        // most likely.
-        if (!running) {
-            break;
         }
 
         int pitch;
@@ -164,6 +157,10 @@ int main(int argc, char *argv[])
         SDL_RenderCopy(renderer, texture, &screen_rect, &screen_rect);
         SDL_RenderPresent(renderer);
     }
+
+    SDL_DestroyTexture(texture);
+
+    SDL_DestroyRenderer(renderer);
 
     SDL_DestroyWindow(window);
 
