@@ -1,10 +1,12 @@
 #include <SDL2/SDL.h>
+
 #include <vector>
 #include <iostream>
 #include <time.h>
-#include <triangle.h>
-#include <matrix.h>
 #include <math.h>
+
+#include "triangle.h"
+#include "matrix.h"
 
 inline uint32_t argb(uint8_t a, uint8_t r, uint8_t g, uint8_t b)
 {
