@@ -5,6 +5,32 @@
 #include <iostream>
 #include <iomanip>
 
+class Vec2
+{
+public:
+    std::array<float, 2> e{};
+
+    Vec2() : e{0, 0} {}
+    Vec2(float x, float y) : e{x, y} {}
+
+    double x() const { return e[0]; }
+    double y() const { return e[1]; }
+
+    bool operator==(const Vec2 &v) const
+    {
+        return this->e == v.e;
+    }
+
+    float operator[](int i)
+    {
+        return e[i];
+    }
+
+    void dump() const {
+        std::cout << e[0] << std::setw(8) << e[1] << std::setw(8) << std::endl;
+    }
+};
+
 class Vec3
 {
 public:
@@ -19,13 +45,48 @@ public:
 
     Vec3 operator+(const Vec3 &v)
     {
+        return Vec3 {
+            e[0] += v.e[0],
+            e[1] += v.e[1],
+            e[2] += v.e[2]
+        };
+    }
+
+    Vec3 operator-(const Vec3 &v)
+    {
+        return Vec3 {
+            e[0] -= v.e[0],
+            e[1] -= v.e[1],
+            e[2] -= v.e[2]
+        };
+    }
+
+    Vec3 operator*(float scalar)
+    {
+        return Vec3 {
+            e[0] *= scalar,
+            e[1] *= scalar,
+            e[2] *= scalar
+        };
+    }
+
+    Vec3 operator/(float scalar) {
+        return Vec3 {
+            e[0] /= scalar,
+            e[1] /= scalar,
+            e[2] /= scalar
+        };  
+    }
+
+    Vec3 operator+=(const Vec3 &v)
+    {
         e[0] += v.e[0];
         e[1] += v.e[1];
         e[2] += v.e[2];
         return *this;
     }
 
-    Vec3 operator-(const Vec3 &v)
+    Vec3 operator-=(const Vec3 &v)
     {
         e[0] -= v.e[0];
         e[1] -= v.e[1];
@@ -33,16 +94,7 @@ public:
         return *this;
     }
 
-    /* I don't know that this type of multiplication is ever used. */
-    Vec3 operator*(const Vec3 &v)
-    {
-        e[0] *= v.e[0];
-        e[1] *= v.e[1];
-        e[2] *= v.e[2];
-        return *this;
-    }
-
-    Vec3 operator*(float scalar)
+    Vec3 operator*=(float scalar)
     {
         e[0] *= scalar;
         e[1] *= scalar;
@@ -50,7 +102,7 @@ public:
         return *this;
     }
 
-    Vec3 operator/(float scalar) {
+    Vec3 operator/=(float scalar) {
         e[0] /= scalar;
         e[1] /= scalar;
         e[2] /= scalar;
@@ -79,31 +131,7 @@ float dot(const Vec3 &a, const Vec3 &b)
     return a.e[0] * b.e[0] + a.e[1] * b.e[1] + a.e[2] * b.e[2];
 }
 
-class Vec2
-{
-public:
-    std::array<float, 2> e{};
 
-    Vec2() : e{0, 0} {}
-    Vec2(float x, float y) : e{x, y} {}
-
-    double x() const { return e[0]; }
-    double y() const { return e[1]; }
-
-    bool operator==(const Vec2 &v) const
-    {
-        return this->e == v.e;
-    }
-
-    float operator[](int i)
-    {
-        return e[i];
-    }
-
-    void dump() const {
-        std::cout << e[0] << std::setw(8) << e[1] << std::setw(8) << std::endl;
-    }
-};
 
 class Vec4
 {
@@ -127,6 +155,15 @@ public:
     }
 
     Vec4 operator/(float scalar) {
+        return Vec4 {
+            e[0] / scalar,
+            e[1] / scalar,
+            e[2] / scalar,
+            e[3] / scalar
+        };
+    }
+
+    Vec4 operator/=(float scalar) {
         e[0] /= scalar;
         e[1] /= scalar;
         e[2] /= scalar;

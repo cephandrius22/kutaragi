@@ -19,15 +19,6 @@ void test_sub() {
     assert(expected == result);
 }
 
-void test_mult_vec() {
-    Vec3 a {1,2,3};
-    Vec3 b {1,2,3};
-    Vec3 result = a * b;
-    Vec3 expected{1,4,9};
-
-    assert(expected == result);
-}
-
 void test_mult_scalar() {
     Vec3 a {1,2,3};
     Vec3 result = a * 3;
@@ -56,7 +47,6 @@ void test_vec4() {
 int main(int argc, char *argv[]) {
     test_add();
     test_sub();
-    test_mult_vec();
     test_mult_scalar();
     test_dot();
     test_vec4();

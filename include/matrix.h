@@ -1,10 +1,12 @@
 #ifndef KUTARAGI_MATRIX_H
 #define KUTARAGI_MATRIX_H
 
-#include <vec.h>
+#include "vec.h"
 #include <array>
 #include <math.h>
 #include <iostream>
+
+const float PI = 3.14159;
 
 class Mat4
 {
@@ -103,7 +105,38 @@ Mat4 scaling(Vec3 vec)
     return Mat4{values};
 }
 
-const float PI = 3.14159;
+Mat4 rotate_x_axis(float theta) {
+    float theta_radians = theta * PI / 180;
+    std::array<float, 16> values = {
+        1, 0, 0, 0,
+        0, cos(theta_radians), -sin(theta_radians), 0,
+        0, sin(theta_radians), cos(theta_radians), 0,
+        0, 0, 0, 1,
+    };
+    return Mat4{values};
+}
+
+Mat4 rotate_y_axis(float theta) {
+    float theta_radians = theta * PI / 180;
+    std::array<float, 16> values = {
+        cos(theta_radians), 0, sin(theta_radians), 0,
+        0, 1, 0, 0,
+        -sin(theta_radians), 0, cos(theta_radians), 0,
+        0, 0, 0, 1,
+    };
+    return Mat4{values};
+}
+
+Mat4 rotate_z_axis(float theta) {
+    float theta_radians = theta * PI / 180;
+    std::array<float, 16> values = {
+        cos(theta_radians), -sin(theta), 0, 0,
+        sin(theta_radians), cos(theta_radians), 0, 0,
+        0, 0, 1, 0,
+        0, 0, 0, 1,
+    };
+    return Mat4{values};
+}
 
 Mat4 projection(float fov, float aspect_ratio, float znear, float zfar)
 {

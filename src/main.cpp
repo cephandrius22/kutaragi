@@ -1,8 +1,10 @@
 #include <SDL2/SDL.h>
 #include <vector>
 #include <iostream>
+#include <time.h>
 #include <triangle.h>
 #include <matrix.h>
+#include <math.h>
 
 inline uint32_t argb(uint8_t a, uint8_t r, uint8_t g, uint8_t b)
 {
@@ -81,29 +83,24 @@ int main(int argc, char *argv[])
 
     std::vector<Triangle> triangles{tri};
 
-    Mat4 translate = translation(Vec3{0, 0, -10});
+    Mat4 translate = translation(Vec3{0, 0, -1});
 
     // for now assume the camera is at {0, 0, 0}
 
     // generate a perspective matrix
-    Mat4 project = projection(90, 4.0f / 3.0f, 0.1f, 100.0f);
+    Mat4 project = projection(90, 16.0f / 9.0f, 0.1f, 100.0f);
     // project.dump();
-    Mat4 mvp = translate * project;
-//    v1.dump();
-
-    // return 0;
+    float angle = 10;
+    Mat4 rotate = rotate_y_axis(angle);
+    time_t start = time(NULL);
 
     bool running = true;
-    while (running)
-    {
+    while (running) {
         SDL_Event event;
-        while (SDL_PollEvent(&event) != 0)
-        {
-            switch (event.type)
-            {
+        while (SDL_PollEvent(&event) != 0) {
+            switch (event.type) {
             case SDL_WINDOWEVENT:
-                if (event.window.event == SDL_WINDOWEVENT_RESIZED)
-                {
+                if (event.window.event == SDL_WINDOWEVENT_RESIZED) {
                     break; // TODO: just not going to handle this atm
                     // int w, h;
                     // SDL_GetWindowSize(window, &w, &h);
@@ -121,8 +118,7 @@ int main(int argc, char *argv[])
 
         // Check again after handling events. This should be reformatted
         // most likely.
-        if (!running)
-        {
+        if (!running) {
             break;
         }
 
@@ -131,6 +127,14 @@ int main(int argc, char *argv[])
         uint32_t color = argb(255, 77, 255, 100);
         // line(pixels, screen_rect.w, color, 400, 400, 700, 700);
 
+        float angle = 10;
+        Mat4 rotate = rotate_y_axis(angle);
+
+        time_t diff = time(NULL) - start;
+        // float d = fmod(diff, 10);
+        // translate = translation(Vec3{0, 0, -100});
+
+        Mat4 mvp = project;
 
         color = argb(255, 0, 255, 255);
         // line(pixels, screen_rect.w, color, 200, 500, 700, 300);
@@ -150,22 +154,6 @@ int main(int argc, char *argv[])
         line(pixels, screen_rect.w, color, (int) s1.x(), (int) s1.y(), (int) s2.x(), (int) s2.y());
         line(pixels, screen_rect.w, color, (int) s1.x(), (int) s1.y(), (int) s3.x(), (int) s3.y());
         line(pixels, screen_rect.w, color, (int) s2.x(), (int) s2.y(), (int) s3.x(), (int) s3.y());
-
-
-
-        // for (Triangle t : triangles)
-        // {
-
-        //     for (int y = 0; y < screen_rect.h; y++)
-        //     {
-        //         for (int x = 0; x < screen_rect.w; x++)
-        //         {
-        //             int color = (x + y) % 2 == 0 ? 255 : 0;
-        //             pixels[y * screen_rect.w + x] =
-        //                 argb(255, color, color, color);
-        //         }
-        //     }
-        // }
 
         SDL_UnlockTexture(texture);
 
